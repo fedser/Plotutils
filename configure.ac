@@ -58,6 +58,8 @@ else
   CXXFLAGS_NOT_SET_BY_INSTALLER="no"
 fi
 
+AC_PROG_CXX
+
 # We now use libtool to make and installed a shared library.  This should
 # invoke the tests AC_PROG_CC, AC_OBJEXT, AC_PROG_INSTALL, and
 # AC_PROG_MAKE_SET, or equivalents, so we don't perform them explicitly.
