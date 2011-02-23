@@ -5,3 +5,10 @@ aclocal.m4
 configure
 config.hin
 ltmain.sh
+.deps
+Makefile
+config.log
+config.h
+config.status
+libtool
+stamp-h1
