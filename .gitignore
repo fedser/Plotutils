@@ -4,3 +4,4 @@ autom4te.cache
 aclocal.m4
 configure
 config.hin
+ltmain.sh
