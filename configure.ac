@@ -200,6 +200,21 @@ fi
 
 CPPFLAGS="$our_saved_CPPFLAGS"
 
+# Check that we have libUnitTest++ available. This is only necessary
+# (obviously) for the unit tests, so we should really have a
+# --enable-unit-tests or similar configure flag.
+
+AC_LANG_PUSH([C++])
+AC_CHECK_HEADERS([UnitTest++.h], [], [have_lib_unittest=no])
+if test "x${have_lib_unittest}" = xno; then
+   AC_MSG_ERROR([
+--------------------------------------------
+libUnitTest++ is not available
+Build cannot continue
+--------------------------------------------])
+fi
+AC_LANG_POP
+
 # Allow installer to specify location of Athena widgets (i.e. location of
 # libraries lib/libXaw.so and lib/libXmu.so, and header files).  If the
 # argument of --with-athena is a directory DIR, we'll add an `-L DIR/lib'
