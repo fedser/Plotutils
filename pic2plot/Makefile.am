@@ -7,6 +7,14 @@ pic2plot_LDADD = ../lib/libcommon.a ./libgroff/libgroff.a ../libplot/libplot.la
 
 noinst_HEADERS = common.h object.h output.h pic.h
 
+check_PROGRAMS = unittest
+
+TESTS = unittest
+
+unittest_SOURCES = test/unittest.cc
+unittest_CPPFLAGS = -I/usr/include/unittest++
+unittest_LDADD = -lUnitTest++
+
 AM_YFLAGS = -d
 
 INCLUDES = -I$(srcdir)/../include -I$(srcdir)/include
