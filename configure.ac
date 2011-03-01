@@ -189,14 +189,11 @@ AC_CHECK_HEADERS([X11/extensions/multibuf.h], [], [],
 # endif
 ])
 
-AC_CHECK_HEADERS([X11/Xaw/Label.h], [], [have_x11_xaw_label_h=no])
-if test "x${have_x11_xaw_label_h}" = xno; then
-   AC_MSG_ERROR([
+AC_CHECK_HEADERS([X11/Xaw/Label.h], [], [AC_MSG_ERROR([
 --------------------------------------------
 Header file X11/Xaw/Label.h not found
 Build cannot continue
---------------------------------------------])
-fi
+--------------------------------------------])])
 
 CPPFLAGS="$our_saved_CPPFLAGS"
 
@@ -205,14 +202,11 @@ CPPFLAGS="$our_saved_CPPFLAGS"
 # --enable-unit-tests or similar configure flag.
 
 AC_LANG_PUSH([C++])
-AC_CHECK_HEADERS([UnitTest++.h], [], [have_lib_unittest=no])
-if test "x${have_lib_unittest}" = xno; then
-   AC_MSG_ERROR([
+AC_CHECK_HEADERS([UnitTest++.h], [], [AC_MSG_ERROR([
 --------------------------------------------
 libUnitTest++ is not available
 Build cannot continue
---------------------------------------------])
-fi
+--------------------------------------------])])
 AC_LANG_POP
 
 # Allow installer to specify location of Athena widgets (i.e. location of
