@@ -197,18 +197,6 @@ Build cannot continue
 
 CPPFLAGS="$our_saved_CPPFLAGS"
 
-# Check that we have libUnitTest++ available. This is only necessary
-# (obviously) for the unit tests, so we should really have a
-# --enable-unit-tests or similar configure flag.
-
-AC_LANG_PUSH([C++])
-AC_CHECK_HEADERS([UnitTest++.h], [], [AC_MSG_ERROR([
---------------------------------------------
-libUnitTest++ is not available
-Build cannot continue
---------------------------------------------])])
-AC_LANG_POP
-
 # Allow installer to specify location of Athena widgets (i.e. location of
 # libraries lib/libXaw.so and lib/libXmu.so, and header files).  If the
 # argument of --with-athena is a directory DIR, we'll add an `-L DIR/lib'
@@ -359,6 +347,29 @@ AM_CONDITIONAL(NO_LIBPLOTTER, test "x$no_libplotter" = "xyes")
 # distributed.)
 AC_ARG_ENABLE(libxmi, [  --enable-libxmi         build the libxmi scan-conversion library], echo enabling construction of the libxmi scan-conversion library; no_libxmi="no", no_libxmi="yes")
 AM_CONDITIONAL(NO_LIBXMI, test "x$no_libxmi" = "xyes")
+
+# Do we enable unit tests using UnitTest++?
+AC_ARG_ENABLE([unit-tests],
+		[AC_HELP_STRING([--enable-unit-tests],
+				[Enable C++ unit tests (disabled by default)])],
+		[],
+		[enable_unit_tests=no])
+AM_CONDITIONAL(UNIT_TESTS, test "x$enable_unit_tests" = "xyes")
+
+# Check that we have libUnitTest++ available. This is only necessary
+# (obviously) for the unit tests, so we should really have a
+# --enable-unit-tests or similar configure flag.
+
+if test "x$enable_unit_tests" = "xyes"; then
+AC_LANG_PUSH([C++])
+AC_CHECK_HEADERS([UnitTest++.h], [], [AC_MSG_ERROR([
+--------------------------------------------
+libUnitTest++ is not available
+Build cannot continue
+--------------------------------------------])])
+AC_LANG_POP
+fi
+
 
 # Override default autoconf value "-g -O2" or "-g" for CFLAGS and
 # CXXFLAGS, set by AC_PROG_CC and AC_PROG_CXX.  Provided, that is,
