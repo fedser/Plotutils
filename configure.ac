@@ -44,6 +44,15 @@ AH_TEMPLATE([USE_LJ_FONTS_IN_PS],
 AH_TEMPLATE([USE_PS_FONTS_IN_PCL], 
 	[Define to enable support for the 35 PS fonts in PCL output.])
 
+# Check that makeinfo is available, which is used to generate
+# documentation. It would be better if we just disabled the
+# corresponding documentation (with a warning) if it isn't available
+AC_CHECK_PROGS([HAVE_MAKEINFO], [makeinfo], [no])
+
+if test "x$HAVE_MAKEINFO" = "xno"; then
+   AC_MSG_ERROR([makeinfo not available])
+fi
+
 # Did installer set the CFLAGS and CXXFLAGS environ variables before
 # running configure?  Our default CFLAGS and CXXFLAGS differ from
 # autoconf's, but we won't override installer-specified values.
