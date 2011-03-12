@@ -1,6 +1,9 @@
 // -*- C++ -*-
 // The text-piece class, used by pic2plot.
 
+#ifndef _TEXT_H_
+#define _TEXT_H_
+
 enum hadjustment 
 {
   CENTER_ADJUST,
@@ -33,3 +36,5 @@ public:
   const char *filename;
   int lineno;
 };
+
+#endif /* _TEXT_H_ */

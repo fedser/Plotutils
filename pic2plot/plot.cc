@@ -1,6 +1,10 @@
 /* This file is part of the GNU plotutils package.  Copyright (C) 1995,
    1996, 1997, 1998, 1999, 2000, 2005, 2008, Free Software Foundation, Inc.
 
+   This incorporates modifications to the original GNU package made in
+   2011 by Tim Martin (tim@asymptotic.co.uk). This modified version is
+   not supported or maintained by the GNU project.
+
    The GNU plotutils package is free software.  You may redistribute it
    and/or modify it under the terms of the GNU General Public License as
    published by the Free Software foundation; either version 2, or (at your
@@ -34,6 +38,7 @@
 #include "output.h"
 #include "common.h"
 #include "plot.h"		// libplot header file
+#include "plot_output.h"
 
 // Plotter parameter array, set from command line in main.cc
 extern plPlotterParams *plotter_params;
@@ -54,54 +59,6 @@ typedef struct
 } Colornameinfo;
 
 extern const Colornameinfo _colornames[];
-
-// our libplot driver
-
-class plot_output : public common_output
-{
-public:
-  // ctor, dtor
-  plot_output();
-  ~plot_output();
-  // basic interface
-  void start_picture (double sc, const position &ll, const position &ur);
-  void finish_picture (void);
-  // draw objects
-  void arc (const position &start, const position &cent, const position &end,
-	    const line_type &lt);
-  void circle (const position &cent, double rad, const line_type &lt, 
-	       double fill);
-  void ellipse (const position &cent, const distance &dim,
-		const line_type &lt, double fill);
-  void line (const position &start, const position *v, int n,
-	     const line_type &lt);
-  void polygon (const position *v, int n,
-		const line_type &lt, double fill);
-  void spline (const position &start, const position *v, int n,
-	       const line_type &lt);
-  void text (const position &center, text_piece *v, int n, double angle);
-  void rounded_box (const position &cent, const distance &dim,
-		    double rad, const line_type &lt, double fill);
-  // attribute-querying function
-  int supports_filled_polygons (void);
-private:
-  // parameters
-  plPlotter *plotter;		// pointer to opaque libplot Plotter object
-  double default_plotter_line_thickness; // line thickness in virtual points
-  int pen_red, pen_green, pen_blue;	 // 48-bit pen color
-  // dynamic variables, keep track of Plotter drawing state
-  int plotter_line_type; // one of line_type::solid etc.
-  int plotter_fill_fraction; // libplot fill fraction
-  double plotter_line_thickness; // in virtual points
-  bool plotter_visible_pen;	// default is `yes'
-  bool plotter_path_in_progress; // need to break?
-  // internal functions, modify Plotter drawing state
-  void set_line_type_and_thickness (const line_type &lt);
-  void set_fill (double fill);
-  void set_pen_visibility (bool visible);
-  // invoked by common_output dotting methods
-  void dot (const position &pos, const line_type &lt);
-};
 
 output *
 make_plot_output()

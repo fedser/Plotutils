@@ -1,6 +1,9 @@
 // -*- C++ -*-
 // Declaration of the position class, defined in pic2plot source.
 
+#ifndef _POSITION_H_
+#define _POSITION_H_ 1
+
 struct place;
 
 class position {
@@ -30,3 +33,4 @@ double hypot(const position &a);
 
 typedef position distance;
 
+#endif /* not _POSITION_H_ */

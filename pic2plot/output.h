@@ -1,3 +1,9 @@
+#ifndef _OUTPUT_H_
+#define _OUTPUT_H_
+
+#include "position.h"
+#include "text.h"
+
 // The output class: almost pure virtual (a protocol class), but
 // see some definitions in object.cc.
 
@@ -81,3 +87,5 @@ extern double font_size;
 extern double line_width;
 extern int precision_dashing;
 #endif
+
+#endif /* not _OUTPUT_H_ */

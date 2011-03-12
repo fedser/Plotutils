@@ -1,6 +1,10 @@
 /* This file is part of the GNU plotutils package.  Copyright (C) 1995,
    1996, 1997, 1998, 1999, 2000, 2005, 2008, Free Software Foundation, Inc.
 
+   This incorporates modifications to the original GNU package made in
+   2011 by Tim Martin (tim@asymptotic.co.uk). This modified version is
+   not supported or maintained by the GNU project.
+
    The GNU plotutils package is free software.  You may redistribute it
    and/or modify it under the terms of the GNU General Public License as
    published by the Free Software foundation; either version 2, or (at your
@@ -15,6 +19,11 @@
    with the GNU plotutils package; see the file COPYING.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin St., Fifth Floor,
    Boston, MA 02110-1301, USA. */
+
+#ifndef _COMMON_H_
+#define _COMMON_H_
+
+#include "output.h"
 
 // The common_output class: subclassed from the output class, 
 // providing support for dotting/dashing and for rounded boxes.
@@ -85,3 +94,4 @@ private:
 // not private because TeX driver uses this
 int compute_arc_center (const position &start, const position &cent, const position &end, position *result);
 
+#endif /* not _COMMON_H_ */

@@ -11,9 +11,9 @@ check_PROGRAMS = unittest
 
 TESTS = unittest
 
-unittest_SOURCES = test/unittest.cc
+unittest_SOURCES = test/unittest.cc plot.cc object.cc common.cc gram.yy lex.cc
 unittest_CPPFLAGS = -I/usr/include/unittest++
-unittest_LDADD = -lUnitTest++
+unittest_LDADD = -lUnitTest++ ../libplot/libplot.la ./libgroff/libgroff.a ../lib/libcommon.a
 
 AM_YFLAGS = -d
 
