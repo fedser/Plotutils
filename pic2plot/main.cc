@@ -20,6 +20,7 @@
 #include "pic.h"
 #include "output.h"
 #include "common.h"
+#include "file_handling.h"
 
 #include "libcommon.h"
 #include "getopt.h"
@@ -66,7 +67,7 @@ int precision_dashing = 0;	// position dashes/dots individually?
 
 // static variables
 static int had_parse_error = 0;	// parse error?
-static int lf_flag = 1;		// non-zero -> try to parse `.lf' lines
+int lf_flag = 1;		// non-zero -> try to parse `.lf' lines
 
 // options
 
@@ -109,7 +110,6 @@ struct option long_options[] =
 const int hidden_options[] = { (int)('T' << 8), 0 };
 
 // forward references
-void do_file (const char *filename);
 void do_picture (FILE *fp);
 
 //////////////////////////////////////////////////////////////////////
@@ -529,137 +529,6 @@ main (int argc, char **argv)
   return had_parse_error ? EXIT_FAILURE : EXIT_SUCCESS;
 }
 
-void 
-do_file (const char *filename)
-{
-  FILE *fp;
-  if (strcmp(filename, "-") == 0)
-    fp = stdin;
-  else 
-    {
-      errno = 0;
-      fp = fopen(filename, "r");
-      if (fp == 0)
-	fatal ("can't open `%1': %2", filename, strerror(errno));
-    }
-  out->set_location (filename, 1);
-  current_filename = filename;
-  current_lineno = 1;
-  enum { START, MIDDLE, HAD_DOT, HAD_P, HAD_PS, HAD_l, HAD_lf } state = START;
-  for (;;) 
-    {
-      int c = getc(fp);
-      if (c == EOF)		// break out of for loop on EOF, only
-	break;
-      switch (state) 
-	{
-	case START:
-	  if (c == '.')
-	    state = HAD_DOT;
-	  else 
-	    {
-	      if (c == '\n') 
-		{
-		  current_lineno++;
-		  state = START;
-		}
-	      else		// dnl
-		state = MIDDLE;
-	    }
-	  break;
-	case MIDDLE:
-	  // discard chars until newline seen; switch back to START
-	  if (c == '\n') 
-	    {
-	      current_lineno++;
-	      state = START;
-	    }
-	  break;
-	case HAD_DOT:
-	  if (c == 'P')
-	    state = HAD_P;
-	  else if (lf_flag && c == 'l')
-	    state = HAD_l;
-	  else 
-	    {
-	      if (c == '\n') 
-		{
-		  current_lineno++;
-		  state = START;
-		}
-	      else		// dnl
-		state = MIDDLE;
-	    }
-	  break;
-	case HAD_P:
-	  if (c == 'S')
-	    state = HAD_PS;
-	  else  
-	    {
-	      if (c == '\n') 
-		{
-		  current_lineno++;
-		  state = START;
-		}
-	      else		// dnl
-		state = MIDDLE;
-	    }
-	  break;
-	case HAD_PS:
-	  if (c == ' ' || c == '\n' || compatible_flag) 
-	    {
-	      ungetc(c, fp);
-	      do_picture(fp);	// do the picture, incl. args of .PS if any
-	      state = START;
-	    }
-	  else			// dnl
-	    state = MIDDLE;
-	  break;
-	case HAD_l:
-	  if (c == 'f')
-	    state = HAD_lf;
-	  else 
-	    {
-	      if (c == '\n') 
-		{
-		  current_lineno++;
-		  state = START;
-		}
-	      else		// dnl
-		state = MIDDLE;
-	    }
-	  break;
-	case HAD_lf:
-	  if (c == ' ' || c == '\n' || compatible_flag) 
-	    {
-	      string line;
-
-	      while (c != EOF) 
-		{
-		  line += c;
-		  if (c == '\n') 
-		    {
-		      current_lineno++;
-		      break;
-		    }
-		  c = getc(fp);
-		}
-	      line += '\0';
-	      interpret_lf_args(line.contents());
-	      state = START;
-	    }
-	  else			// dnl
-	    state = MIDDLE;
-	  break;
-	default:
-	  assert(0);
-	}
-    }
-
-  // exit gracefully when EOF seen
-  if (fp != stdin)
-    fclose(fp);
-}
 
 void 
 do_picture(FILE *fp)

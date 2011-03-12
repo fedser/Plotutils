@@ -1,6 +1,9 @@
 // -*- C++ -*-
 // Declarations etc. related to the errarg class, defined in libgroff/errarg.c.
 
+#ifndef _ERRARG_H_
+#define _ERRARG_H_ 1
+
 class errarg {
  public:
   errarg();
@@ -28,3 +31,4 @@ extern void errprint(const char *,
 		     const errarg &arg2 = empty_errarg,
 		     const errarg &arg3 = empty_errarg);
 
+#endif /* _ERRARG_H_ */
