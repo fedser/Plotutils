@@ -1,6 +1,7 @@
 #include <UnitTest++.h>
 
 #include "plot_output.h"
+#include "file_handling.h"
 
 // Global variables that are present in main.cc, which have to be
 // duplicated here for linkage. Probably these should be removed
@@ -31,12 +32,12 @@ int compatible_flag = 0;	// recog. PS/PE even if not foll. by ' ', '\n'?
 int safer_flag = 0; 		// forbid shell escapes?
 
 // flag (could be used by driver)
-int flyback_flag;
 int no_centering_flag = 0;	// turn off auto-centering?
 
 // static variables
-static int had_parse_error = 0;	// parse error?
-static int lf_flag = 1;		// non-zero -> try to parse `.lf' lines
+int lf_flag = 1;		// non-zero -> try to parse `.lf' lines
+
+int had_parse_error = 0;
 
 
 TEST(plot_output)
@@ -45,6 +46,12 @@ TEST(plot_output)
 	plot_output output;
 
 	CHECK_EQUAL(true, output.supports_filled_polygons());
+}
+
+TEST(do_file)
+{
+	out = make_plot_output();
+	do_file("test/basic.pic");
 }
 
 int main(int argc, char ** argv)

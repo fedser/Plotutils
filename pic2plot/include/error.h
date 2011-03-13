@@ -1,6 +1,9 @@
 // -*- C++ -*-
 // Declarations of error-handling functions, defined in libgroff/error.cc.
 
+#ifndef _ERROR_H_
+#define _ERROR_H_ 1
+
 #include "errarg.h"
 
 extern void fatal_with_file_and_line(const char *filename, int lineno, const char *format, const errarg &arg1 = empty_errarg, const errarg &arg2 = empty_errarg, const errarg &arg3 = empty_errarg);
@@ -19,3 +22,5 @@ extern void warning(const char *, const errarg &arg1 = empty_errarg, const errar
 extern const char *program_name;
 extern const char *current_filename;
 extern int current_lineno;
+
+#endif /* not _ERROR_H_ */

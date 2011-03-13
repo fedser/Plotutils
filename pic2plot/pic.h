@@ -16,6 +16,9 @@
    the Free Software Foundation, Inc., 51 Franklin St., Fifth Floor,
    Boston, MA 02110-1301, USA. */
 
+#ifndef _PIC_H_
+#define _PIC_H_ 1
+
 // include system headers: stdio, string, math (+ M_PI, M_SQRT2), stdlib, errno
 #include "sys-defines.h"
 
@@ -94,3 +97,5 @@ extern int command_char;
 extern int compatible_flag;
 extern int safer_flag;
 extern int no_centering_flag;
+
+#endif /* not _PIC_H_ */

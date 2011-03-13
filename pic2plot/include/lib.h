@@ -2,6 +2,9 @@
 // Declarations/definitions of miscellaneous libgroff functions etc.,
 // not declared in any other header file.
 
+#ifndef _LIB_H_
+#define _LIB_H_ 1
+
 extern const char *our_itoa(int);
 
 extern char *strsave(const char *s);
@@ -27,3 +30,5 @@ inline int illegal_input_char(int c)
 #define ad_delete(size) delete []
 #define a_delete delete []
 #endif /* not ARRAY_DELETE_NEEDS_SIZE */
+
+#endif /* not _LIB_H_ */

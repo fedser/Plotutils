@@ -27,13 +27,22 @@
 #include "common.h"
 #include "stringclass.h"
 #include "lib.h"
+#include "pic.h"
+#include "top_input.h"
+#include "file_handling.h"
 
 extern output *out; // defined in main.cc
 extern int lf_flag;
 extern int compatible_flag;
 
+extern int flyback_flag;
+
 void do_picture(FILE *fp);
 
+/**
+ * Preconditions: Global variable out must be set to a valid output
+ * object 
+ */
 void 
 do_file (const char *filename)
 {
@@ -164,4 +173,101 @@ do_file (const char *filename)
   // exit gracefully when EOF seen
   if (fp != stdin)
     fclose(fp);
+}
+
+void 
+do_picture(FILE *fp)
+{
+  flyback_flag = 0;
+  int c;
+  while ((c = getc(fp)) == ' ')
+    ;
+  if (c == '<') 
+    /* first nonblank character after .PS is '<' */
+    {
+      string filename;
+      while ((c = getc(fp)) == ' ')
+	;
+      while (c != EOF && c != ' ' && c != '\n') 
+	{
+	  filename += char(c);
+	  c = getc(fp);
+	}
+      if (c == ' ') 
+	{
+	  do 
+	    {
+	      c = getc(fp);
+	    } while (c != EOF && c != '\n');
+	}
+      if (c == '\n') 
+	current_lineno++;
+      if (filename.length() == 0)
+	error("missing filename after `<'");
+      else 
+	{
+	  filename += '\0';
+	  const char *old_filename = current_filename;
+	  int old_lineno = current_lineno;
+	  // filenames must be permanent
+	  do_file (strsave(filename.contents())); // recursive call
+	  current_filename = old_filename;
+	  current_lineno = old_lineno;
+	}
+      out->set_location (current_filename, current_lineno);
+    }
+  else 
+    /* first nonblank character after .PS is not '<' */
+    {
+      out->set_location (current_filename, current_lineno);
+
+      /* get the starting line */
+      string start_line;
+      while (c != EOF) 
+	{
+	  if (c == '\n') 
+	    {
+	      current_lineno++;
+	      break;
+	    }
+	  start_line += c;
+	  c = getc(fp);
+	}
+      if (c == EOF)
+	return;
+      start_line += '\0';
+
+      /* parse starting line for height and width */
+      double wid, ht;
+      switch (sscanf(&start_line[0], "%lf %lf", &wid, &ht)) 
+	{
+	case 1:
+	  ht = 0.0;
+	  break;
+	case 2:
+	  break;
+	default:
+	  ht = wid = 0.0;
+	  break;
+	}
+      out->set_desired_width_height (wid, ht);
+      out->set_args (start_line.contents());
+
+      // do the parse
+      lex_init (new top_input(fp));
+      if (yyparse()) 
+	{
+	  had_parse_error = 1;
+	  lex_error ("giving up on this picture");
+	}
+      parse_cleanup();
+      lex_cleanup();
+
+      // skip the rest of the .PF/.PE line
+      while ((c = getc(fp)) != EOF && c != '\n')
+	;
+      if (c == '\n')
+	current_lineno++;
+      out->set_location (current_filename, current_lineno);
+    }
 }

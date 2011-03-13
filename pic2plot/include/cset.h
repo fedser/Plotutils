@@ -1,6 +1,9 @@
 // -*- C++ -*-
 // Declarations etc. related to the cset class, defined in libgroff/cset.cc.
 
+#ifndef _CSET_H_
+#define _CSET_H_ 1
+
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
 #else /* not HAVE_LIMITS_H */
@@ -63,3 +66,5 @@ public:
 private:
   static int initialised;
 } _cset_init;
+
+#endif /* not _CSET_H_ */

@@ -1,6 +1,9 @@
 // -*- C++ -*-
 // Declarations etc. related to the string class, defined in libgroff/string.cc
 
+#ifndef _STRINGCLASS_H_
+#define _STRINGCLASS_H_ 1
+
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>
@@ -192,3 +195,5 @@ string::operator+=(char c)
 void put_string(const string &, FILE *);
 
 string as_string(int);
+
+#endif /* not _STRINGCLASS_H_ */
