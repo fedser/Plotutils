@@ -3,6 +3,6 @@
 
 extern int had_parse_error;
 
-void do_file (const char *filename);
+void do_file (const char *filename, output *out);
 
 #endif /* not _FILE_HANDLING_H_ */

@@ -302,10 +302,10 @@ main (int argc, char **argv)
 
   /* invoke do_file() on stdin or on each remaining file */
   if (optind >= argc)
-    do_file ("-");
+	  do_file ("-", out);
   else
     for (int i = optind; i < argc; i++)
-      do_file (argv[i]);
+		do_file (argv[i], out);
 
   delete out;
   if (ferror(stdout) || fflush(stdout) < 0)

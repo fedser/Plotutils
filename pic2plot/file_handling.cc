@@ -31,7 +31,6 @@
 #include "top_input.h"
 #include "file_handling.h"
 
-extern output *out; // defined in main.cc
 extern int lf_flag;
 extern int compatible_flag;
 
@@ -44,7 +43,7 @@ void do_picture(FILE *fp);
  * object 
  */
 void 
-do_file (const char *filename)
+do_file (const char *filename, output *out)
 {
   FILE *fp;
   if (strcmp(filename, "-") == 0)
@@ -210,7 +209,7 @@ do_picture(FILE *fp)
 	  const char *old_filename = current_filename;
 	  int old_lineno = current_lineno;
 	  // filenames must be permanent
-	  do_file (strsave(filename.contents())); // recursive call
+	  do_file (strsave(filename.contents()), out); // recursive call
 	  current_filename = old_filename;
 	  current_lineno = old_lineno;
 	}

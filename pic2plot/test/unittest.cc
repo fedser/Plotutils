@@ -51,7 +51,7 @@ TEST(plot_output)
 TEST(do_file)
 {
 	out = make_plot_output();
-	do_file("test/basic.pic");
+	do_file("test/basic.pic", out);
 }
 
 int main(int argc, char ** argv)
