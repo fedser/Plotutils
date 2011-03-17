@@ -11,7 +11,7 @@ check_PROGRAMS = unittest
 
 TESTS = unittest
 
-unittest_SOURCES = test/unittest.cc plot.cc object.cc common.cc gram.yy lex.cc file_handling.cc top_input.cc
+unittest_SOURCES = test/unittest.cc plot.cc object.cc common.cc gram.yy lex.cc file_handling.cc top_input.cc test/unittest_output.cc
 unittest_CPPFLAGS = -I/usr/include/unittest++
 unittest_LDADD = -lUnitTest++ ../libplot/libplot.la ./libgroff/libgroff.a ../lib/libcommon.a
 
