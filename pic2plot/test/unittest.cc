@@ -2,6 +2,9 @@
 
 #include "plot_output.h"
 #include "file_handling.h"
+#include "unittest_output.h"
+
+#include <sstream>
 
 // Global variables that are present in main.cc, which have to be
 // duplicated here for linkage. Probably these should be removed
@@ -50,8 +53,10 @@ TEST(plot_output)
 
 TEST(do_file)
 {
-	out = make_plot_output();
+	std::stringstream out_str;
+	out = new unittest_output(out_str);
 	do_file("test/basic.pic", out);
+	delete out;
 }
 
 int main(int argc, char ** argv)
