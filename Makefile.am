@@ -24,6 +24,7 @@ ADD_LIBXMI =
 else
 ADD_LIBXMI = libxmi
 endif
+ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = lib spline double ode ode-examples libplot $(ADD_LIBXMI) plot tek2plot plotfont graph hersheydemo $(ADD_LIBPLOTTER) include info doc fonts test
 

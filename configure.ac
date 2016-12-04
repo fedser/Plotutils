@@ -2,11 +2,12 @@
 # Copyright (C) 1989-2009 Free Software Foundation, Inc.
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([GNU plotutils unofficial],[3.0unofficial],[tim@asymptotic.co.uk])
 AC_PREREQ(2.59)
+AC_INIT([plotutils],[3.1],[kmzhou4@yahoo.com])
 AC_CONFIG_SRCDIR(graph/graph.c)
-AM_INIT_AUTOMAKE([plotutils],[2.6])
+AM_INIT_AUTOMAKE([subdir-objects])
 AM_CONFIG_HEADER(config.h:config.hin)
+AC_CONFIG_MACRO_DIR([m4])
 
 # The following will be defined in config.h, if appropriate.
 

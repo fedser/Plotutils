@@ -17,7 +17,7 @@ unittest_LDADD = -lUnitTest++ ../libplot/libplot.la ./libgroff/libgroff.a ../lib
 
 AM_YFLAGS = -d
 
-INCLUDES = -I$(srcdir)/../include -I$(srcdir)/include
+AM_CPPFLAGS = -I$(srcdir)/../include -I$(srcdir)/include
 
 CLEANFILES = fontlist.c
 
