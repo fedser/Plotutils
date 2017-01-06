@@ -515,8 +515,8 @@ _our_error_fn_stream (png_struct *png_ptr, const char *data)
 #endif
 #endif
     }
-
-  longjmp (png_ptr->jmpbuf, 1);
+  //longjmp (png_ptr->jmpbuf, 1);
+  longjmp(png_jmpbuf(png_ptr), 1);
 }
 
 static void 

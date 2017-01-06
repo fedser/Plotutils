@@ -1,17 +1,16 @@
 ## Process this file with automake to produce Makefile.in
+noinst_HEADERS = common.h object.h output.h pic.h file_handling.h plot_output.h top_input.h
 
 bin_PROGRAMS = pic2plot
 
-pic2plot_SOURCES = common.cc lex.cc main.cc object.cc plot.cc gram.yy fontlist.c file_handling.cc top_input.cc
+pic2plot_SOURCES = common.cc lex.cc main.cc object.cc plot.cc gram.yy fontlist.c file_handling.cc top_input.cc $(noinst_HEADERS)
 pic2plot_LDADD = ../lib/libcommon.a ./libgroff/libgroff.a ../libplot/libplot.la
-
-noinst_HEADERS = common.h object.h output.h pic.h
 
 check_PROGRAMS = unittest
 
 TESTS = unittest
 
-unittest_SOURCES = test/unittest.cc plot.cc object.cc common.cc gram.yy lex.cc file_handling.cc top_input.cc test/unittest_output.cc
+unittest_SOURCES = test/unittest.cc plot.cc object.cc common.cc gram.yy lex.cc file_handling.cc top_input.cc test/unittest_output.cc $(noinst_HEADERS)
 unittest_CPPFLAGS = -I/usr/include/unittest++
 unittest_LDADD = -lUnitTest++ ../libplot/libplot.la ./libgroff/libgroff.a ../lib/libcommon.a
 

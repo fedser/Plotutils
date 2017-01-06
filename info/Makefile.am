@@ -3,7 +3,8 @@
 info_TEXINFOS = plotutils.texi
 
 # Use --no-split to avoid creating filenames > 14 chars.
-MAKEINFO = makeinfo --no-split
+MAKEINFO = makeinfo
+AM_MAKEINFOFLAGS = --no-split
 
 man_MANS = ode.1 plot.1 spline.1 tek2plot.1 plotfont.1
 

@@ -420,3 +420,22 @@ The contents of the plotutils package are:
 	double. This is a filter for converting, scaling and cutting
 		unformatted (binary) or ASCII data streams.  It is still
 		under development and is not yet documented.
+
+Development headers needed
+
+On Centos systems:
+	Xlib.h in libX11-devel
+	Intrinsic.h in libXt-devel
+	libXaw-devel
+
+On ubuntu (use sudo apt-get install xxxx):
+	libx11-dev
+	libxt-dev
+	libxaw7-dev
+	libpng-dev
+
+To build the libplotter for the C++ interface
+configure --enable-libplotter     build the C++ Plotter class library and C++ software
+
+There is still a problem with PNG plotter header.  
+‘PNGPlotter’
