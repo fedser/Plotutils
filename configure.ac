@@ -2,11 +2,12 @@
 # Copyright (C) 1989-2009 Free Software Foundation, Inc.
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([GNU plotutils unofficial],[3.0unofficial],[tim@asymptotic.co.uk])
 AC_PREREQ(2.59)
+AC_INIT([plotutils],[3.1],[kmzhou4@yahoo.com])
 AC_CONFIG_SRCDIR(graph/graph.c)
-AM_INIT_AUTOMAKE([plotutils],[2.6])
+AM_INIT_AUTOMAKE([subdir-objects])
 AM_CONFIG_HEADER(config.h:config.hin)
+AC_CONFIG_MACRO_DIR([m4])
 
 # The following will be defined in config.h, if appropriate.
 
@@ -314,6 +315,8 @@ AM_CONDITIONAL(NO_X, test "x$no_x" = "xyes")
 # ALSO NOTE: the test for libpng automatically checks for zlib, since it
 # supplies the `-lz' argument to the linker.
 
+CPPFLAGS="-I/usr/local/include $CPPFLAGS"
+LDFLAGS="-L/usr/local/lib $LDFLAGS"
 AC_CHECK_HEADERS(png.h, png_support="yes", png_support="no")
 AC_CHECK_LIB(png, png_set_tRNS, [AC_DEFINE(HAVE_LIBPNG)], png_support="no", -lz -lm)
 AC_ARG_WITH(libpng, [  --without-libpng        omit PNG support even if libpng and zlib are present], if test "x${with_libpng}" = "xno"; then png_support="no"; fi)

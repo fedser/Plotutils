@@ -4829,12 +4829,12 @@ problems of the form:
 @tex
 @example
 @group
-$x' = f(t,x,y,@ldots{},z)$
-$y' = g(t,x,y,@ldots{},z)$
+$x' = f(t,x,y,@dots{},z)$
+$y' = g(t,x,y,@dots{},z)$
    .
    .
    .
-$z' = h(t,x,y,@ldots{},z)$
+$z' = h(t,x,y,@dots{},z)$
 @end group
 @end example
 @end tex

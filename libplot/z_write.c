@@ -163,8 +163,8 @@ _pl_z_maybe_output_image (S___(Plotter *_plotter))
       return -1;
     }
 
-  /* cleanup after libpng errors (error handler does a longjmp) */
-  if (setjmp (png_ptr->jmpbuf))
+  /* cleanup after libpng errors (error handler does a longjmp) */ /*if (setjmp (png_ptr->jmpbuf))*/
+  if (setjmp (png_jmpbuf(png_ptr)))
     {
       png_destroy_write_struct (&png_ptr, (png_info **)NULL);
       return -1;
@@ -444,7 +444,8 @@ _our_error_fn_stdio (png_struct *png_ptr, const char *data)
 #endif
     }
 
-  longjmp (png_ptr->jmpbuf, 1);
+  /* longjmp (png_ptr->jmpbuf, 1); */
+  longjmp(png_jmpbuf(png_ptr), 1);
 }
 
 static void 
@@ -514,8 +515,8 @@ _our_error_fn_stream (png_struct *png_ptr, const char *data)
 #endif
 #endif
     }
-
-  longjmp (png_ptr->jmpbuf, 1);
+  //longjmp (png_ptr->jmpbuf, 1);
+  longjmp(png_jmpbuf(png_ptr), 1);
 }
 
 static void 

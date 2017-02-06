@@ -1,3 +1,6 @@
+Jan 5, 2017
+Fixed bug when compiling against PNG version 1.6
+
 Version 2.6 released, 9/2009.  [Includes libplot 4.4, interface age=2.]
 
 ode:	 File ode/specfun.c now heavily rewritten to remove all non-GNU

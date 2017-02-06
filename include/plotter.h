@@ -56,6 +56,7 @@
 
 #define PL_LIBPLOT_VER_STRING "4.4"
 #define PL_LIBPLOT_VER         404
+#define INCLUDE_PNG_SUPPORT 1
 
 extern const char pl_libplot_ver[8];   /* need room for 99.99aa */
 
