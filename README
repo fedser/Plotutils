@@ -432,10 +432,22 @@ On ubuntu (use sudo apt-get install xxxx):
 	libx11-dev
 	libxt-dev
 	libxaw7-dev
-	libpng-dev
+	libpng-dev, this may not bring to the latest version.
+	   A manual installation may be needed.
+
+	   if libpng is 1.2, then you need to do
+    libpng16-dev
+
+You will need makeinfo
+ which is part of texinfo
+
+sudo apt-get install texinfo
+   
+
 
 To build the libplotter for the C++ interface
 configure --enable-libplotter     build the C++ Plotter class library and C++ software
 
 There is still a problem with PNG plotter header.  
 ‘PNGPlotter’
+
