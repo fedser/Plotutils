@@ -45,6 +45,7 @@
 #ifndef _PLOTTER_H_
 #define _PLOTTER_H_ 1
 
+
 /***********************************************************************/
 
 /* Version of GNU libplot/libplotter which this header file accompanies.
@@ -60,17 +61,22 @@
 
 extern const char pl_libplot_ver[8];   /* need room for 99.99aa */
 
+
 /***********************************************************************/
 
-/* If we're supporting X, include X-related header files needed by the
-   class definition. */
+/**
+ * If we're supporting X, include X-related header files needed by the
+ * class definition. 
+ */
 #ifndef X_DISPLAY_MISSING
 #include <X11/Xlib.h>
 #include <X11/Intrinsic.h>
 #endif /* not X_DISPLAY_MISSING */
 
-/* Include stdio and iostream support if this is libplotter rather than
-   libplot. */
+/**
+ * Include stdio and iostream support if this is libplotter rather than
+ * libplot. 
+ */
 #ifndef NOT_LIBPLOTTER
 #include <cstdio>
 #include <iostream>
@@ -78,7 +84,10 @@ using namespace std;
 #endif
 
 /* THE GLOBAL VARIABLES IN GNU LIBPLOTTER */
-/* There are two; both are user-settable error handlers. */
+/* 
+ * There are two; both are user-settable error handlers. 
+ * May need to replace with exceptions in the future.
+ * */
 #ifndef NOT_LIBPLOTTER
 extern int (*pl_libplotter_warning_handler) (const char *msg);
 extern int (*pl_libplotter_error_handler) (const char *msg);
@@ -87,7 +96,10 @@ extern int (*pl_libplotter_error_handler) (const char *msg);
 
 /***********************************************************************/
 
-/* Structures for points. */
+/**
+ * Structures for points. 
+ * Maybe good to convert to C++ format.
+ * */
 
 typedef struct
 {
