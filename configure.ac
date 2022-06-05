@@ -382,7 +382,6 @@ Build cannot continue
 AC_LANG_POP
 fi
 
-
 # Override default autoconf value "-g -O2" or "-g" for CFLAGS and
 # CXXFLAGS, set by AC_PROG_CC and AC_PROG_CXX.  Provided, that is,
 # installer didn't set CFLAGS via an environment variable before running
