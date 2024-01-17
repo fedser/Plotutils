@@ -457,3 +457,31 @@ properly. We have made png mandatory instead of optional.
 libpng-dev - PNG library - development (version 1.6)
 libpng++-dev - C++ interface to the PNG (Portable Network Graphics) library
 ------------------------
+
+configure.ac  line 89 is obsolete, if remove it then ode/extern.h line 83
+will be a problem.
+----------------
+ 88 AC_TYPE_PID_T
+ 89 AC_TYPE_SIGNAL
+ 90 
+--------------------
+
+ode/extern.h
+82 struct sym * salloc (void);
+83 RETSIGTYPE fptrap (int sig);
+84 
+
+— Macro: AC_TYPE_SIGNAL
+
+    If signal.h declares signal as returning a pointer to a function returning void, define RETSIGTYPE to be void; otherwise, define it to be int. These days, it is portable to assume C89, and that signal handlers return void, without needing to use this macro or RETSIGTYPE.
+
+    When targetting older K&R C, it is possible to define signal handlers as returning type RETSIGTYPE, and omit a return statement:
+
+              RETSIGTYPE
+              hup_handler ()
+              {
+              ...
+              }
+
+So we will edite the source code to replace RETSIGTYPE with void
+Then comment out the AC_TYPE_SIGNAL macro

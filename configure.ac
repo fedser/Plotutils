@@ -86,7 +86,11 @@ AC_EXEEXT
 AC_C_CONST
 AC_TYPE_SIZE_T
 AC_TYPE_PID_T
-# AC_TYPE_SIGNAL
+# if the following is commented out then
+# the source code need to replace RETSIGTYPE with void
+#AC_TYPE_SIGNAL 
+# define the value (hard code) to avoid editing all source files
+AC_DEFINE([RETSIGTYPE], [void], [signal should return void])
 
 # Check whether fflush(NULL) works
 AC_MSG_CHECKING(whether flushing a null FILE pointer works)
@@ -127,6 +131,8 @@ AC_PROG_YACC
 #AM_PROG_LEX
 #AC_PROG_LEX(yywrap)
 AC_PROG_LEX([yywrap])
+#AC_PROG_LEX([noyywrap])
+#AC_PROG_LEX()
 
 # Should libplot/libplotter support multithreading via pthread mutexes?
 # Check to see whether libc includes dummy ("weak") pthread functions, so

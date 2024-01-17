@@ -80,7 +80,8 @@ struct expr * ealloc (void);
 struct prt * palloc (void);
 struct sym * lookup (const char *nam);
 struct sym * salloc (void);
-RETSIGTYPE fptrap (int sig);
+//RETSIGTYPE fptrap (int sig);
+void fptrap (int sig);
 
 /* in scanner or parser */
 int yyerror (const char *msg);
