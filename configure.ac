@@ -6,7 +6,7 @@ AC_PREREQ(2.59)
 AC_INIT([plotutils],[3.1],[kmzhou4@yahoo.com])
 AC_CONFIG_SRCDIR(graph/graph.c)
 AM_INIT_AUTOMAKE([subdir-objects])
-AM_CONFIG_HEADER(config.h:config.hin)
+AC_CONFIG_HEADERS([config.h:config.hin])
 AC_CONFIG_MACRO_DIR([m4])
 
 # The following will be defined in config.h, if appropriate.
@@ -31,7 +31,7 @@ AH_TEMPLATE([HAVE_DBE_SUPPORT],
 AH_TEMPLATE([HAVE_MBX_SUPPORT], 
 	[Define if -lXext has support for the MBX X11 protocol extension.])
 
-# PNG-related.
+# PNG-related. if libpng is not provided then will have linking error
 AH_TEMPLATE([HAVE_LIBPNG], 
 	[Define if libpng is available.])
 AH_TEMPLATE([INCLUDE_PNG_SUPPORT], 
@@ -75,7 +75,9 @@ AC_PROG_CXX
 # AC_PROG_MAKE_SET, or equivalents, so we don't perform them explicitly.
 # Note: this can apparently alter CFLAGS, on a few platforms, e.g., on
 # SCO OpenServer 5 (i.e. *-*-sco3.2v5*), "-belf" is added.
-AC_PROG_LIBTOOL
+# AC_PROG_LIBTOOL is obsolete
+# AC_PROG_LIBTOOL
+LT_INIT
 
 # Determine extension (e.g. ".exe") on executables, if any.
 AC_EXEEXT
@@ -84,7 +86,7 @@ AC_EXEEXT
 AC_C_CONST
 AC_TYPE_SIZE_T
 AC_TYPE_PID_T
-AC_TYPE_SIGNAL
+# AC_TYPE_SIGNAL
 
 # Check whether fflush(NULL) works
 AC_MSG_CHECKING(whether flushing a null FILE pointer works)
@@ -105,10 +107,13 @@ int main()
     exit(0); }]])],[AC_MSG_RESULT(yes); AC_DEFINE(HAVE_NULL_FLUSH)],[AC_MSG_RESULT(no)],[AC_MSG_RESULT(no)])
 
 # Checks for header files: ANSI C, POSIX, and nonstandard Unix headers.
-AC_HEADER_STDC
+# following is obsolete, already standard
+# AC_HEADER_STDC
 AC_CHECK_HEADERS(string.h limits.h float.h)
 AC_CHECK_HEADERS(malloc.h pthread.h strings.h unistd.h values.h sys/select.h sys/stdtypes.h sys/time.h sys/types.h sys/wait.h)
-AC_HEADER_TIME
+# AC_HEADER_TIME
+# replaced with the following
+AC_CHECK_HEADERS([sys/time.h])
 
 # HP/UX needs a cpp definition for math.h to define matherr-related things
 AC_EGREP_HEADER(_HPUX_SOURCE, math.h, [AC_EGREP_HEADER(matherr, math.h, [AC_DEFINE(_HPUX_SOURCE)])])
@@ -119,7 +124,9 @@ AC_FUNC_ALLOCA
 # Checks for programs.  Automake needs AM_PROG_LEX, not AC_PROG_LEX;
 # ignore the bogus warning about AC_PROG_LEX being invoked twice.
 AC_PROG_YACC
-AM_PROG_LEX
+#AM_PROG_LEX
+#AC_PROG_LEX(yywrap)
+AC_PROG_LEX([yywrap])
 
 # Should libplot/libplotter support multithreading via pthread mutexes?
 # Check to see whether libc includes dummy ("weak") pthread functions, so
@@ -321,6 +328,9 @@ AC_CHECK_HEADERS(png.h, png_support="yes", png_support="no")
 AC_CHECK_LIB(png, png_set_tRNS, [AC_DEFINE(HAVE_LIBPNG)], png_support="no", -lz -lm)
 AC_ARG_WITH(libpng, [  --without-libpng        omit PNG support even if libpng and zlib are present], if test "x${with_libpng}" = "xno"; then png_support="no"; fi)
 if test "x${png_support}" = "xyes"; then AC_DEFINE(INCLUDE_PNG_SUPPORT) fi
+if test "x${png_support}" = "xno"; then
+    AC_MSG_ERROR([please install pnglib and png.h dev version])
+fi
 AM_CONDITIONAL(NO_PNG, test "x${png_support}" = "xno")
 
 # Font options.  The ps_fonts_in_pcl variable is used by test/plot2hpgl.test.
@@ -362,7 +372,7 @@ AM_CONDITIONAL(NO_LIBXMI, test "x$no_libxmi" = "xyes")
 
 # Do we enable unit tests using UnitTest++?
 AC_ARG_ENABLE([unit-tests],
-		[AC_HELP_STRING([--enable-unit-tests],
+		[AS_HELP_STRING([--enable-unit-tests],
 				[Enable C++ unit tests (disabled by default)])],
 		[],
 		[enable_unit_tests=no])

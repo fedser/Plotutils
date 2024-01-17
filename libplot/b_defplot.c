@@ -25,7 +25,7 @@
 #include "extern.h"
 #include "xmi.h"		/* use libxmi scan conversion module */
 
-/* forward references */
+/* forward references. Can only be called from this file. */
 static bool parse_bitmap_size (const char *bitmap_size_s, int *width, int *height);
 
 #ifndef LIBPLOTTER
@@ -283,23 +283,20 @@ BitmapPlotter::~BitmapPlotter ()
 /* Forwarding function called by any BitmapPlotter in closepl.  See
    b_closepl.c, n_write.c, z_write.c for the forwarded-to functions.  The
    first is currently a no-op. */
-int
-_maybe_output_image (Plotter *_plotter)
-{
+int _maybe_output_image(Plotter *_plotter) {
   int retval;
 
-  switch ((int)(_plotter->data->type))
-    {
+  switch ((int)(_plotter->data->type)) {
     case (int)PL_BITMAP:
     default:
-      retval = _pl_b_maybe_output_image (_plotter);
+      retval = _pl_b_maybe_output_image(_plotter);
       break;
     case (int)PL_PNM:
-      retval = _pl_n_maybe_output_image (_plotter);
+      retval = _pl_n_maybe_output_image(_plotter);
       break;
 #ifdef INCLUDE_PNG_SUPPORT
     case (int)PL_PNG:
-      retval = _pl_z_maybe_output_image (_plotter);
+      retval = _pl_z_maybe_output_image(_plotter);
       break;
 #endif
     }

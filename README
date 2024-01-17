@@ -451,3 +451,21 @@ configure --enable-libplotter     build the C++ Plotter class library and C++ so
 There is still a problem with PNG plotter header.  
 ‘PNGPlotter’
 
+libpng-dev - PNG library - development (version 1.6)
+libpng++-dev - C++ interface to the PNG (Portable Network Graphics) library
+
+libpng-tools - PNG library - tools (version 1.6)
+libpng16-16 - PNG library - runtime (version 1.6)
+fp-units-gfx - Free Pascal - graphics-library units dependency package
+fp-units-gfx-3.2.2 - Free Pascal - graphics-library units
+jp2a - converts jpg and png images to ascii
+libimage-png-libpng-perl - Perl interface to libpng
+libpng-sixlegs-java - Sixlegs Java PNG Decoder
+libpng-sixlegs-java-doc - Documentation for Sixlegs Java PNG Decoder
+libpnglite-dev - lightweight C library for loading and writing PNG images
+libpnglite0 - lightweight C library for loading and writing PNG images
+png-definitive-guide - PNG: The Definitive Guide
+pngquant - PNG (Portable Network Graphics) image optimising utility
+ruby-oily-png - native mixin to speed up ChunkyPNG
+tkpng - PNG photo image support to Tcl/Tk
+

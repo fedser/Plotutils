@@ -44,8 +44,6 @@
    that situation.  For example, _pl_m_openpl is #defined to be
    MetaPlotter::openpl if NOT_LIBPLOTTER is not defined.  The MetaPlotter
    class, like all other Plotter classes, is defined in plotter.h. */
-
-
 /*************************************************************************/
 /* INCLUDE FILES                                         */
 /*************************************************************************/
@@ -83,7 +81,6 @@
 #endif
 #endif /* not X_DISPLAY_MISSING */
 
-
 /*************************************************************************/
 /* DEFINITIONS RELATED TO OUR FONT DATABASE (g_fontdb.c and g_fontd2.c)  */
 /*************************************************************************/
@@ -336,7 +333,6 @@ extern const struct plTypefaceInfoStruct _pl_g_ps_typeface_info[];
 extern const struct plTypefaceInfoStruct _pl_g_pcl_typeface_info[];
 extern const struct plTypefaceInfoStruct _pl_g_stick_typeface_info[];
 
-
 /***********************************************************************/
 /* GENERAL DEFINITIONS, TYPEDEFS, & EXTERNAL VARIABLES                 */
 /***********************************************************************/
@@ -482,7 +478,6 @@ enum { DISP_DEVICE_COORS_REAL, DISP_DEVICE_COORS_INTEGER_LIBXMI, DISP_DEVICE_COO
 #define YUV(x,y) ((- _plotter->drawstate->transform.m[1] * (x) + _plotter->drawstate->transform.m[0] * (y)) / (_plotter->drawstate->transform.m[0] * _plotter->drawstate->transform.m[3] - _plotter->drawstate->transform.m[1] * _plotter->drawstate->transform.m[2]))
 #endif
 
-
 /*************************************************************************/
 /* MISC. DEFS on POLYLINES and PATHS(relevant to all or most display devices)*/
 /*************************************************************************/
@@ -500,7 +495,6 @@ enum { DISP_DEVICE_COORS_REAL, DISP_DEVICE_COORS_INTEGER_LIBXMI, DISP_DEVICE_COO
 #define PL_MAX_UNFILLED_PATH_LENGTH 500
 #define PL_MAX_UNFILLED_PATH_LENGTH_STRING "500"
 
-
 /************************************************************************/
 /* DEFINITIONS & EXTERNALS SPECIFIC TO INDIVIDUAL DEVICE DRIVERS */
 /************************************************************************/
@@ -553,7 +547,6 @@ enum { DISP_DEVICE_COORS_REAL, DISP_DEVICE_COORS_INTEGER_LIBXMI, DISP_DEVICE_COO
 #define REGIS_DEVICE_Y_MIN_CLIP (REGIS_DEVICE_Y_MIN - 0.5 + REGIS_CLIP_FUZZ)
 #define REGIS_DEVICE_Y_MAX_CLIP (REGIS_DEVICE_Y_MAX + 0.5 - REGIS_CLIP_FUZZ)
 
-
 /************************************************************************/
 /* Tektronix device driver */
 /************************************************************************/
@@ -599,7 +592,6 @@ extern const char * const _pl_t_kermit_bgcolor_escapes[TEK_NUM_ANSI_SYS_COLORS];
 #define TEK_ANSI_SYS_GRAY55  7
 #define TEK_ANSI_SYS_WHITE  15
 
-
 /************************************************************************/
 /* HP-GL device driver */
 /************************************************************************/
@@ -714,7 +706,6 @@ extern const char * const _pl_t_kermit_bgcolor_escapes[TEK_NUM_ANSI_SYS_COLORS];
 #define HPGL2_FIXED_SPACING 0
 #define HPGL2_PROPORTIONAL_SPACING 1
 
-
 /************************************************************************/
 /* xfig device driver */
 /************************************************************************/
@@ -784,7 +775,6 @@ extern const plColor _pl_f_fig_stdcolors[FIG_NUM_STD_COLORS];
    include deeper, i.e. obscured objects) */
 #define FIG_INITIAL_DEPTH 989
 
-
 /************************************************************************/
 /* CGM device driver */
 /************************************************************************/
@@ -981,7 +971,6 @@ typedef struct plCGMCustomLineTypeStruct
 #define CGM_MAX_CUSTOM_LINE_TYPES 16
 #define CGM_PL_MAX_DASH_ARRAY_LENGTH 8
 
-
 /************************************************************************/
 /* Postscript/idraw device driver */
 /************************************************************************/
@@ -1014,7 +1003,6 @@ extern const char * const _pl_p_idraw_stdcolornames[PS_NUM_IDRAW_STD_COLORS];
 #define PS_NUM_IDRAW_STD_SHADINGS 5
 extern const double _pl_p_idraw_stdshadings[PS_NUM_IDRAW_STD_SHADINGS];
 
-
 /************************************************************************/
 /* Adobe Illustrator device driver */
 /************************************************************************/
@@ -1041,7 +1029,6 @@ extern const double _pl_p_idraw_stdshadings[PS_NUM_IDRAW_STD_SHADINGS];
 #define AI_FILL_NONZERO_WINDING 0
 #define AI_FILL_ODD_WINDING 1
 
-
 /************************************************************************/
 /* XDrawable and X device drivers */
 /************************************************************************/
@@ -1073,7 +1060,6 @@ extern const double _pl_p_idraw_stdshadings[PS_NUM_IDRAW_STD_SHADINGS];
 
 #endif /* not X_DISPLAY_MISSING */
 
-
 /***********************************************************************/
 /* DRAWING STATE                                                       */
 /***********************************************************************/
@@ -1144,7 +1130,6 @@ extern PlotterParams *_old_api_global_plotter_params;
 #define _old_api_global_plotter_params Plotter::_old_api_global_plotter_params
 #endif
 
-
 /**************************************************************************/
 /* PROTOTYPES ETC. for libplot and libplotter */
 /**************************************************************************/
@@ -2252,7 +2237,8 @@ extern void _pl_z_terminate (Plotter *_plotter);
 /* PNGPlotter internal functions (which override BitmapPlotter functions) */
 extern int _pl_z_maybe_output_image (Plotter *_plotter);
 ___END_DECLS
-#else  /* LIBPLOTTER */
+#else  
+/* LIBPLOTTER */
 /* PNGPlotter protected methods, for libplotter */
 #define _pl_z_initialize PNGPlotter::initialize
 #define _pl_z_terminate PNGPlotter::terminate
